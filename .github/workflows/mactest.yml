@@ -1,0 +1,17 @@
+name: macOS CI Test
+
+on:
+  push:
+    branches:
+      - github-actions-macos
+
+jobs:
+  build:
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v1
