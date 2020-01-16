@@ -5,7 +5,7 @@ SCRIPTS=$(dirname "${BASH_SOURCE[0]}")
 system_profiler SPHardwareDataType SPSoftwareDataType SPStorageDataType SPDeveloperToolsDataType
 
 export HOMEBREW_NO_AUTO_UPDATE=1
-brew install cmake curl pkgconfig autoconf automake libtool
+brew install cmake pkgconfig libtool
 
 # FIXME: Store this somewhere else to avoid having to manually update this script
 
@@ -57,11 +57,27 @@ mkdir -p /tmp/out
 tar cj -C "$OPENSCAD_LIBRARIES" -f /tmp/out/"$LIBRARIES_CACHE" .
 shasum -a 512 /tmp/out/"$LIBRARIES_CACHE" > /tmp/out/"$LIBRARIES_CACHE".sha512
 
-
-
+VERSION=$(date "+%Y.%m.%d")
 export NUMCPU=4
-time ./scripts/release-common.sh -snapshot
-OPENSCAD_NAME=$(ls OpenSCAD-*.dmg)
-shasum -a 256 "$OPENSCAD_NAME" > "$OPENSCAD_NAME".sha256
-shasum -a 512 "$OPENSCAD_NAME" > "$OPENSCAD_NAME".sha512
-cp -v "$OPENSCAD_NAME"* /tmp/out/
+time ./scripts/release-common.sh -v $VERSION snapshot
+
+echo "Sanity check of the app bundle..."
+./scripts/macosx-sanity-check.py OpenSCAD.app/Contents/MacOS/OpenSCAD
+if [[ $? != 0 ]]; then
+  exit 1
+fi
+
+OPENSCAD_DMG=OpenSCAD-$VERSION.dmg
+shasum -a 256 "$OPENSCAD_DMG" > "$OPENSCAD_DMG".sha256
+shasum -a 512 "$OPENSCAD_DMG" > "$OPENSCAD_DMG".sha512
+
+SIGNATURE=$(openssl dgst -sha1 -binary < "$OPENSCAD_DMG" | openssl dgst -dss1 -sign $HOME/.ssh/openscad-appcast.pem | openssl enc -base64)
+
+APPCASTFILE=appcast-snapshots.xml
+
+echo "Creating appcast $APPCASTFILE..."
+FILESIZE=$(stat -f "%z" "$OPENSCAD_DMG")
+sed -e "s,@VERSION@,$VERSION,g" -e "s,@SHORTVERSION@,$SHORTVERSION,g" -e "s,@VERSIONDATE@,$VERSIONDATE,g" -e "s,@DSASIGNATURE@,$SIGNATURE,g" -e "s,@FILESIZE@,$FILESIZE,g" $APPCASTFILE.in > $APPCASTFILE
+
+cp -v "$OPENSCAD_DMG"* /tmp/out/
+cp $APPCASTFILE /tmp/out/
