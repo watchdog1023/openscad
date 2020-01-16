@@ -7,13 +7,13 @@
 # The script will create a file called openscad-<versionstring>.<extension> in
 # the current directory (or under ./mingw32 or ./mingw64)
 #
-# Usage: release-common.sh [-v <versionstring>] [-c] [-mingw[32|64]] [-tests]
+# Usage: release-common.sh [-v <versionstring>] [-c] [mingw[32|64]] [tests] [snapshot]
 #  -v       Version string (e.g. -v 2010.01)
 #  -d       Version date (e.g. -d 2010.01.23)
-#  -mingw32 Cross-compile for win32 using MXE
-#  -mingw64 Cross-compile for win64 using MXE
-#  -snapshot Build a snapshot binary (make e.g. experimental features available, build with commit info)
-#  -tests   Build additional package containing the regression tests
+#  mingw32 Cross-compile for win32 using MXE
+#  mingw64 Cross-compile for win64 using MXE
+#  snapshot Build a snapshot binary (make e.g. experimental features available, build with commit info)
+#  tests   Build additional package containing the regression tests
 #
 # If no version string or version date is given, todays date will be used (YYYY-MM-DD)
 # If only version date is given, it will be used also as version string.
