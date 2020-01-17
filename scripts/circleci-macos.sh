@@ -9,7 +9,7 @@ brew install cmake pkgconfig libtool
 
 # FIXME: Store this somewhere else to avoid having to manually update this script
 
-LIBRARIES_CACHE_SHA512=b024093094bfffb14ca3afd1c36967a2015ef79ff409685eca75ac5e2546b7ba3a899de1ac7e3e34ee961b1eb6f77d01aef8b87df752a150262cbc2bdc6ccd78
+LIBRARIES_CACHE_SHA512=e4b5e48bb1a78970ab80ae4d134ea0bccbf5c31c91199e3ad5feed7e994ae81a8dce93de3b27463a9a92d6deb57abb160af8da20c38a0883ea3f1c9da851b3f9
 CI_BASEDIR=$HOME/project
 LIBRARIES_CACHE=libraries.tar.bz2
 export OPENSCAD_LIBRARIES=$HOME/libraries/install
