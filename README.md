@@ -1,3 +1,5 @@
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/openscad/openscad)
+
 [![Travis (master)](https://img.shields.io/travis/openscad/openscad/master.svg?logo=travis&logoColor=black&colorA=f9d72c&style=plastic)](https://travis-ci.org/openscad/openscad/)
 [![AppVeyor (master)](https://img.shields.io/appveyor/ci/kintel/openscad/master.svg?logo=appveyor&logoColor=black&colorA=f9d72c&style=plastic)](https://ci.appveyor.com/project/kintel/openscad)
 [![CircleCI (master)](https://img.shields.io/circleci/project/github/openscad/openscad/master.svg?logo=circleci&logoColor=black&colorA=f9d72c&style=plastic)](https://circleci.com/gh/openscad/openscad/tree/master)
